@@ -151,114 +151,194 @@ import React from "react";
 // }
 
 // export default App;
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
-function App() {
-  const [cart, setCart] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
+// function App() {
+//   const [cart, setCart] = useState([]);
+//   const [totalPrice, setTotalPrice] = useState(0);
+//   const [totalItems, setTotalItems] = useState(0);
 
-  const products = [
-    { id: 1, name: "Shoes", price: 2000 },
-    { id: 2, name: "T-Shirt", price: 800 },
-    { id: 3, name: "Watch", price: 3000 },
-  ];
+//   const products = [
+//     { id: 1, name: "Shoes", price: 2000 },
+//     { id: 2, name: "T-Shirt", price: 800 },
+//     { id: 3, name: "Watch", price: 3000 },
+//   ];
 
-  // 🔥 Load cart from localStorage (runs once)
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart"));
-    if (savedCart) {
-      setCart(savedCart);
-    }
-  }, []);
+//   // 🔥 Load cart from localStorage (runs once)
+//   useEffect(() => {
+//     const savedCart = JSON.parse(localStorage.getItem("cart"));
+//     if (savedCart) {
+//       setCart(savedCart);
+//     }
+//   }, []);
 
-  // 🔥 Update totals + save to localStorage (runs whenever cart changes)
-  useEffect(() => {
-    const price = cart.reduce(
-      (total, item) => total + item.price * item.qty,
-      0
-    );
+//   // 🔥 Update totals + save to localStorage (runs whenever cart changes)
+//   useEffect(() => {
+//     const price = cart.reduce(
+//       (total, item) => total + item.price * item.qty,
+//       0
+//     );
 
-    const items = cart.reduce((sum, item) => sum + item.qty, 0);
+//     const items = cart.reduce((sum, item) => sum + item.qty, 0);
 
-    setTotalPrice(price);
-    setTotalItems(items);
+//     setTotalPrice(price);
+//     setTotalItems(items);
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+//     localStorage.setItem("cart", JSON.stringify(cart));
+//   }, [cart]);
 
-  // Add item
-  const addToCart = (product) => {
-    const existing = cart.find((item) => item.id === product.id);
+//   // Add item
+//   const addToCart = (product) => {
+//     const existing = cart.find((item) => item.id === product.id);
 
-    if (existing) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id
-            ? { ...item, qty: item.qty + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...product, qty: 1 }]);
-    }
-  };
+//     if (existing) {
+//       setCart(
+//         cart.map((item) =>
+//           item.id === product.id
+//             ? { ...item, qty: item.qty + 1 }
+//             : item
+//         )
+//       );
+//     } else {
+//       setCart([...cart, { ...product, qty: 1 }]);
+//     }
+//   };
 
-  // Increase qty
-  const increaseQty = (id) => {
-    setCart(
-      cart.map((item) =>
-        item.id === id ? { ...item, qty: item.qty + 1 } : item
-      )
-    );
-  };
+//   // Increase qty
+//   const increaseQty = (id) => {
+//     setCart(
+//       cart.map((item) =>
+//         item.id === id ? { ...item, qty: item.qty + 1 } : item
+//       )
+//     );
+//   };
 
-  // Decrease qty
-  const decreaseQty = (id) => {
-    setCart(
-      cart
-        .map((item) =>
-          item.id === id ? { ...item, qty: item.qty - 1 } : item
-        )
-        .filter((item) => item.qty > 0)
-    );
-  };
+//   // Decrease qty
+//   const decreaseQty = (id) => {
+//     setCart(
+//       cart
+//         .map((item) =>
+//           item.id === id ? { ...item, qty: item.qty - 1 } : item
+//         )
+//         .filter((item) => item.qty > 0)
+//     );
+//   };
 
-  // Remove item
-  const removeItem = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
+//   // Remove item
+//   const removeItem = (id) => {
+//     setCart(cart.filter((item) => item.id !== id));
+//   };
 
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       <h1>🛒 Shopping Cart</h1>
+
+//       {/* Badge */}
+//       <h3>Items in Cart: {totalItems}</h3>
+
+//       <h2>Products</h2>
+//       {products.map((p) => (
+//         <div key={p.id}>
+//           {p.name} - ₹{p.price}
+//           <button onClick={() => addToCart(p)}>Add</button>
+//         </div>
+//       ))}
+
+//       <h2>Cart</h2>
+//       {cart.length === 0 && <p>Cart is empty</p>}
+
+//       {cart.map((item) => (
+//         <div key={item.id}>
+//           {item.name} - ₹{item.price} × {item.qty}
+//           <button onClick={() => increaseQty(item.id)}>+</button>
+//           <button onClick={() => decreaseQty(item.id)}>-</button>
+//           <button onClick={() => removeItem(item.id)}>Remove</button>
+//         </div>
+//       ))}
+
+//       <h2>Total: ₹{totalPrice}</h2>
+//     </div>
+//   );
+// }
+
+// export default App;
+// import { useState } from "react";
+
+// export default function App() {
+//   const [fruits, setFruits] = useState([
+//     { id: 1, name: "Apple" },
+//     { id: 2, name: "Banana" },
+//     { id: 3, name: "Mango" }
+//   ]);
+
+//   const [input, setInput] = useState("");
+
+//   // Add fruit
+//   const addFruit = () => {
+//     if (input.trim() === "") return;
+
+//     const newFruit = {
+//       id: Date.now(), // unique key
+//       name: input
+//     };
+
+//     setFruits([...fruits, newFruit]);
+//     setInput("");
+//   };
+
+//   // Delete fruit
+//   const deleteFruit = (id) => {
+//     const updated = fruits.filter((fruit) => fruit.id !== id);
+//     setFruits(updated);
+//   };
+
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       <h2>Fruit List 🍎</h2>
+
+//       <input
+//         value={input}
+//         onChange={(e) => setInput(e.target.value)}
+//         placeholder="Enter fruit"
+//       />
+//       <button onClick={addFruit}>Add</button>
+
+//       <ul>
+//         {fruits.map((fruit) => (
+//           <li key={fruit.id}>
+//             {fruit.name}
+//             <button onClick={() => deleteFruit(fruit.id)}>
+//               ❌
+//             </button>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Tasks from "./pages/Tasks";
+import TaskDetail from "./pages/TaskDetail";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
+import Navbar from "./components/Navbar";
+
+export default function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🛒 Shopping Cart</h1>
+    <>
+     {/* <BrowserRouter> */}
+      <Navbar />
 
-      {/* Badge */}
-      <h3>Items in Cart: {totalItems}</h3>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/tasks/:id" element={<TaskDetail />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+  {/* </BrowserRouter> */}
+  </>
 
-      <h2>Products</h2>
-      {products.map((p) => (
-        <div key={p.id}>
-          {p.name} - ₹{p.price}
-          <button onClick={() => addToCart(p)}>Add</button>
-        </div>
-      ))}
-
-      <h2>Cart</h2>
-      {cart.length === 0 && <p>Cart is empty</p>}
-
-      {cart.map((item) => (
-        <div key={item.id}>
-          {item.name} - ₹{item.price} × {item.qty}
-          <button onClick={() => increaseQty(item.id)}>+</button>
-          <button onClick={() => decreaseQty(item.id)}>-</button>
-          <button onClick={() => removeItem(item.id)}>Remove</button>
-        </div>
-      ))}
-
-      <h2>Total: ₹{totalPrice}</h2>
-    </div>
   );
 }
-
-export default App;
